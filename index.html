@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  #userData {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <form id="userForm">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName">
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName">
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country">
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber">
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city">
+    <label for="village">Village:</label>
+    <input type="text" id="village" name="village">
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="userData"></div>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Get user input
+      var firstName = document.getElementById('firstName').value;
+      var lastName = document.getElementById('lastName').value;
+      var country = document.getElementById('country').value;
+      var phoneNumber = document.getElementById('phoneNumber').value;
+      var state = document.getElementById('state').value;
+      var city = document.getElementById('city').value;
+      var village = document.getElementById('village').value;
+
+      // Store user data in local storage
+      var userData = {
+        firstName: firstName,
+        lastName: lastName,
+        country: country,
+        phoneNumber: phoneNumber,
+        state: state,
+        city: city,
+        village: village
+      };
+      localStorage.setItem('userData', JSON.stringify(userData));
+
+      // Update UI to display user data
+      var userDataDiv = document.getElementById('userData');
+      userDataDiv.innerHTML = `
+        <p>First Name: ${firstName}</p>
+        <p>Last Name: ${lastName}</p>
+        <p>Country: ${country}</p>
+        <p>Phone Number: ${phoneNumber}</p>
+        <p>State: ${state}</p>
+        <p>City: ${city}</p>
+        <p>Village: ${village}</p>
+      `;
+    });
+
+    // Check if there's existing data in local storage on page load
+    window.addEventListener('load', function() {
+      var storedData = localStorage.getItem('userData');
+      if (storedData) {
+        var userData = JSON.parse(storedData);
+        var firstName = userData.firstName;
+        var lastName = userData.lastName;
+        var country = userData.country;
+        var phoneNumber = userData.phoneNumber;
+        var state = userData.state;
+        var city = userData.city;
+        var village = userData.village;
+
+        // Update UI to display existing data
+        var userDataDiv = document.getElementById('userData');
+        userDataDiv.innerHTML = `
+          <p>First Name: ${firstName}</p>
+          <p>Last Name: ${lastName}</p>
+          <p>Country: ${country}</p>
+          <p>Phone Number: ${phoneNumber}</p>
+          <p>State: ${state}</p>
+          <p>City: ${city}</p>
+          <p>Village: ${village}</p>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>
